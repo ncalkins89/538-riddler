@@ -40,3 +40,9 @@ transitive_champs = len(list(chain(*all_champs)))
 print('Total teams: ' + str(total_teams))
 print('Transitive champs: ' + str(transitive_champs))
 print('Non-transitive champs: ' + str(total_teams - transitive_champs))
+
+# plot degrees of separation from nova
+deg = pd.DataFrame([(i, len(level)) for i, level in enumerate(all_champs)])
+deg.columns = ['degrees', 'teams']
+deg.set_index('degrees', inplace=True)
+deg.loc[1:].plot()
