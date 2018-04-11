@@ -25,11 +25,10 @@ num_new_champs = 1
 # search until no new champs are found
 while num_new_champs > 0:
     print(num_new_champs, new_champs)
-    for team in all_champs[-1]:
-        # get the new champs based on the most recently added champs
-        new_champs = get_champs(team)
-        # dedupe against champs already contained in the main list (chain flattens the main list)
-        new_champs = [c for c in new_champs if c not in list(chain(*all_champs))]
+    # get the new champs based on the most recently added champs, and flatten
+    new_champs = list(set(chain(*[get_champs(team) for team in all_champs[-1]])))
+    # dedupe against champs already contained in the main list (chain flattens the main list)
+    new_champs = [c for c in new_champs if c not in list(chain(*all_champs))]
     num_new_champs = len(new_champs)
     all_champs.append(new_champs)
 
